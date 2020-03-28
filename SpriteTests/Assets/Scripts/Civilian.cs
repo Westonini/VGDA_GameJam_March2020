@@ -8,16 +8,13 @@ public class Civilian : MonoBehaviour
     private Collider2D col;
     public Sprite[] bloodSprites;
 
+    public delegate void CivilianDeath();
+    public static event CivilianDeath _civilianDeath;
+
     void Awake()
     {
         SR = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            KillCivilian();
     }
 
     public void KillCivilian()
@@ -36,8 +33,17 @@ public class Civilian : MonoBehaviour
         else
             AudioManager.instance.PlayOneShot("Bloody2");
 
-        //Add 1 to people killed counter
-        ScoreCounter.peopleKilled++;
+        if (_civilianDeath != null)
+            _civilianDeath();
+
+        //Kill object after 30 sec
+        StartCoroutine(DestroySelf(30f));
+    }
+
+    private IEnumerator DestroySelf(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -15,6 +15,9 @@ public class Structure : MonoBehaviour
     public GameObject stompHitbox;
     public GameObject laserHitbox;
 
+    public delegate void StructureDestroyed();
+    public static event StructureDestroyed _structureDestroyed;
+
     void Start()
     {
         SR = GetComponent<SpriteRenderer>();
@@ -55,7 +58,7 @@ public class Structure : MonoBehaviour
 
         SR.sprite = null;
 
-        //Add 1 to structures destroyed counter
-        ScoreCounter.structuresDestroyed++;
+        if (_structureDestroyed != null)
+            _structureDestroyed();
     }
 }
