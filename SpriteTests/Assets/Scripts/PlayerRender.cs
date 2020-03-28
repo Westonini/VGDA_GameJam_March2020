@@ -7,9 +7,10 @@ public class PlayerRender : MonoBehaviour
     public int chosenChar;
     private SpriteRenderer sr;
 
-    private bool facingRight = true;
-    private bool facingDown = true;
+    public bool facingRight = true;
+    public bool facingDown = true;
 
+    public Transform characterTrans;
     public PlayerMovement PM;
     public Characters characters;
 
@@ -17,6 +18,18 @@ public class PlayerRender : MonoBehaviour
 
     public bool getFacingRight() { return facingRight; }
     public bool getFacingDown() { return facingDown; }
+
+    void OnEnable()
+    {
+        PlayerListener._playerFlippedHoriz += FlipHoriz;
+        PlayerListener._playerFlippedVert += FlipVert;
+    }
+
+    void OnDisable()
+    {
+        PlayerListener._playerFlippedHoriz -= FlipHoriz;
+        PlayerListener._playerFlippedVert -= FlipVert;
+    }
 
     private void Awake()
     {
@@ -30,24 +43,6 @@ public class PlayerRender : MonoBehaviour
 
     void Update()
     {
-        //FLIP PLAYER
-        if (!facingRight && PM.getHorizontalInput() > 0)      //HORIZONTALLY
-        {
-            FlipHoriz();
-        }
-        else if (facingRight && PM.getHorizontalInput() < 0)
-        {
-            FlipHoriz();
-        }
-        if (!facingDown && PM.getVerticalInput() < 0)         //VERTICALLY
-        {
-            FlipVert();
-        }
-        else if (facingDown && PM.getVerticalInput() > 0)
-        {
-            FlipVert();
-        }
-
         //SPRITE CHANGES
         if (facingDown)
             sr.sprite = currentCharacter.front;
@@ -61,7 +56,7 @@ public class PlayerRender : MonoBehaviour
         facingRight = !facingRight;
 
         //Flip the player
-        transform.Rotate(0f, 180f, 0f);
+        characterTrans.Rotate(0f, 180f, 0f);
     }
 
     void FlipVert()

@@ -6,6 +6,7 @@ public class PlayerListener : MonoBehaviour
 {
     public Animator anim;
     private PlayerMovement PM;
+    public PlayerRender PR;
 
     public delegate void PlayerWalking();
     public static event PlayerWalking _playerWalking;
@@ -14,6 +15,11 @@ public class PlayerListener : MonoBehaviour
 
     public delegate void PlayerJumping();
     public static event PlayerJumping _playerJumping;
+
+    public delegate void PlayerFlippedHoriz();
+    public static event PlayerFlippedHoriz _playerFlippedHoriz;
+    public delegate void PlayerFlippedVert();
+    public static event PlayerFlippedVert _playerFlippedVert;
 
     private void Awake()
     {
@@ -39,6 +45,18 @@ public class PlayerListener : MonoBehaviour
         {
             if (_playerJumping != null)
                 _playerJumping();
+        }
+
+        //LISTEN FOR SPRITE FLIP
+        if (!PR.getFacingRight() && PM.getHorizontalInput() > 0 || PR.getFacingRight() && PM.getHorizontalInput() < 0)      //HORIZONTALLY
+        {
+            if (_playerFlippedHoriz != null)
+                _playerFlippedHoriz();
+        }
+        if (!PR.getFacingDown() && PM.getVerticalInput() < 0 || PR.getFacingDown() && PM.getVerticalInput() > 0)         //VERTICALLY
+        {
+            if (_playerFlippedVert != null)
+                _playerFlippedVert();
         }
     }
 }

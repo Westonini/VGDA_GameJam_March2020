@@ -6,6 +6,7 @@ public class StartMenu : MonoBehaviour
 {
     static bool showStartMenu = true;
     public GameObject startMenu;
+    public GameObject otherUI;
 
     void Start()
     {
@@ -13,6 +14,7 @@ public class StartMenu : MonoBehaviour
         {
             AudioManager.instance.Play("Theme");
 
+            otherUI.SetActive(false);
             startMenu.SetActive(true);
             Time.timeScale = 0f;
             AudioListener.pause = true;
@@ -21,6 +23,7 @@ public class StartMenu : MonoBehaviour
 
     public void StartGame()
     {
+        otherUI.SetActive(true);
         startMenu.SetActive(false);
         Time.timeScale = 1f;
         AudioListener.pause = false;
