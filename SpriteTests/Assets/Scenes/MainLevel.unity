@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 137826871}
   - component: {fileID: 137826874}
   - component: {fileID: 137826873}
+  - component: {fileID: 137826875}
   - component: {fileID: 137826872}
   m_Layer: 0
   m_Name: Civilian (1)
@@ -624,6 +625,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!50 &137826875
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137826870}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &198048335
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +659,7 @@ GameObject:
   - component: {fileID: 198048339}
   - component: {fileID: 198048338}
   - component: {fileID: 198048337}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WallColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2342,6 +2364,7 @@ GameObject:
   - component: {fileID: 578885413}
   - component: {fileID: 578885416}
   - component: {fileID: 578885415}
+  - component: {fileID: 578885417}
   - component: {fileID: 578885414}
   m_Layer: 0
   m_Name: Civilian (2)
@@ -2446,6 +2469,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!50 &578885417
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578885412}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &611492911
 GameObject:
   m_ObjectHideFlags: 0
@@ -3406,9 +3450,10 @@ GameObject:
   m_Component:
   - component: {fileID: 952226885}
   - component: {fileID: 952226886}
+  - component: {fileID: 952226887}
   m_Layer: 0
   m_Name: LaserHitbox
-  m_TagString: Untagged
+  m_TagString: LaserHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3453,6 +3498,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.801033, y: 0.8341944}
   m_EdgeRadius: 0
+--- !u!114 &952226887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952226884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c251448734006b408551387d1364a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  structObject: {fileID: 1595563400}
 --- !u!1 &958009470
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,6 +3522,7 @@ GameObject:
   - component: {fileID: 958009471}
   - component: {fileID: 958009474}
   - component: {fileID: 958009473}
+  - component: {fileID: 958009475}
   - component: {fileID: 958009472}
   m_Layer: 0
   m_Name: Civilian (3)
@@ -3569,6 +3628,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!50 &958009475
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958009470}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1002221787
 GameObject:
   m_ObjectHideFlags: 0
@@ -4742,7 +4822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b262dc541f0282c4687385928e3ad8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
   explosionPrefab: {fileID: 2861589333720384525, guid: 0e45ad7d4411c7f4d87d4d45cf9f44fe,
     type: 3}
   shadow: {fileID: 1330823081}
@@ -5179,7 +5258,7 @@ GameObject:
   - component: {fileID: 1729598603}
   - component: {fileID: 1729598604}
   - component: {fileID: 1729598605}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StompHitbox
   m_TagString: StompHitbox
   m_Icon: {fileID: 0}
@@ -6391,6 +6470,7 @@ GameObject:
   - component: {fileID: 2142675079}
   - component: {fileID: 2142675078}
   - component: {fileID: 2142675077}
+  - component: {fileID: 2142675081}
   - component: {fileID: 2142675080}
   m_Layer: 0
   m_Name: Civilian
@@ -6496,6 +6576,27 @@ MonoBehaviour:
   - {fileID: -1189345562256101844, guid: 9ee63275dc034d146924b8c27cd9edb4, type: 3}
   - {fileID: 5722333315871558701, guid: 9ee63275dc034d146924b8c27cd9edb4, type: 3}
   - {fileID: 3909595645733894167, guid: 9ee63275dc034d146924b8c27cd9edb4, type: 3}
+--- !u!50 &2142675081
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142675076}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &2147006993
 GameObject:
   m_ObjectHideFlags: 0
@@ -13961,7 +14062,7 @@ PrefabInstance:
     - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
         type: 3}
       propertyPath: sounds.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
         type: 3}
@@ -14027,6 +14128,31 @@ PrefabInstance:
         type: 3}
       propertyPath: sounds.Array.data[7].ignoreListenerPause
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
+        type: 3}
+      propertyPath: sounds.Array.data[8].name
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
+        type: 3}
+      propertyPath: sounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b2076bfb140b3244ae12b82c00dfe48, type: 3}
+    - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
+        type: 3}
+      propertyPath: sounds.Array.data[8].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
+        type: 3}
+      propertyPath: sounds.Array.data[8].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727576791041918967, guid: ae0bed0b06e0bd1488ed7db6118084aa,
+        type: 3}
+      propertyPath: sounds.Array.data[8].loop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae0bed0b06e0bd1488ed7db6118084aa, type: 3}

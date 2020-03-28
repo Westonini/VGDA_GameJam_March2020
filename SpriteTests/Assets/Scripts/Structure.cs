@@ -5,7 +5,7 @@ using UnityEngine;
 public class Structure : MonoBehaviour
 {
     private SpriteRenderer SR;
-    public int health = 2;
+    private int health;
     private float darkenAmount;
     public GameObject explosionPrefab;
 
@@ -18,22 +18,34 @@ public class Structure : MonoBehaviour
     public delegate void StructureDestroyed();
     public static event StructureDestroyed _structureDestroyed;
 
+    private bool invulernable;
+
+
     void Start()
     {
         SR = GetComponent<SpriteRenderer>();
+
+        int randomNum = Random.Range(2, 5);
+        health = randomNum;
 
         darkenAmount = 100f / (health * 100f);
     }
 
     public void TakeDamage()
     {
-        health--;
-        SR.color += new Color(-darkenAmount, -darkenAmount, -darkenAmount);
-
-        if (health <= 0)
+        if (!invulernable)
         {
-            DestroyStructure();
+            health--;
+            SR.color += new Color(-darkenAmount, -darkenAmount, -darkenAmount);
+
+            if (health <= 0)
+            {
+                DestroyStructure();
+            }
+
+            StartCoroutine(Invulnerability(20f / 60f));
         }
+
     }
 
     private void DestroyStructure()
@@ -60,5 +72,12 @@ public class Structure : MonoBehaviour
 
         if (_structureDestroyed != null)
             _structureDestroyed();
+    }
+
+    private IEnumerator Invulnerability(float time)
+    {
+        invulernable = true;
+        yield return new WaitForSeconds(time);
+        invulernable = false;
     }
 }

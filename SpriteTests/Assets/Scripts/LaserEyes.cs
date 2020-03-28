@@ -10,10 +10,13 @@ public class LaserEyes : MonoBehaviour
 
     public bool activeEye;
 
+    private Camera mainCam;
+
     void Start()
     {
         lr = GetComponent<LineRenderer>();
         spawnPos = GetComponent<Transform>();
+        mainCam = Camera.main;
     }
 
     void OnEnable()
@@ -28,8 +31,14 @@ public class LaserEyes : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1"))
+
+
+
+
+        if (Input.GetButton("Fire1") && Time.timeScale != 0)
         {
+            Vector2 cursorPosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
             if (!startedLaser)
             {
                 AudioManager.instance.Play("LaserEyes");
@@ -37,9 +46,32 @@ public class LaserEyes : MonoBehaviour
                 startedLaser = true;
             }
 
-            lr.SetPosition(0, spawnPos.position);
-            Vector2 CursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            lr.SetPosition(1, CursorPosition);
+            if (activeEye)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(cursorPosition, Vector2.zero);
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject.tag == "NPC")
+                    {
+                        Civilian civ = hit.collider.gameObject.GetComponent<Civilian>();
+                        civ.KillCivilian();
+                        AudioManager.instance.Play("Fire");
+                    }
+                    if (hit.collider.gameObject.tag == "LaserHitbox")
+                    {
+                        StructHitbox structObj = hit.collider.gameObject.GetComponent<StructHitbox>();
+                        structObj.CallTakeDamage();
+                        AudioManager.instance.Play("Fire");
+                    }                
+                }
+                else
+                    AudioManager.instance.Stop("Fire");
+            }
+
+                lr.SetPosition(0, spawnPos.position);
+
+                lr.SetPosition(1, cursorPosition);
         }
         if (Input.GetButtonUp("Fire1"))
         {
@@ -48,17 +80,7 @@ public class LaserEyes : MonoBehaviour
             lr.enabled = false;
         }
 
-        if (activeEye)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(spawnPos.position, spawnPos.forward, out hit))
-            {
-                if (hit.collider.gameObject.tag == "NPC")
-                {
-                    Debug.Log("hit civilian");
-                }
-            }
-        }
+
     }
 
     void FlipLaserSO()
