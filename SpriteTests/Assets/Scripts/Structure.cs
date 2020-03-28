@@ -20,7 +20,6 @@ public class Structure : MonoBehaviour
 
     private bool invulernable;
 
-
     void Start()
     {
         SR = GetComponent<SpriteRenderer>();

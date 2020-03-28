@@ -12,11 +12,19 @@ public class LaserEyes : MonoBehaviour
 
     private Camera mainCam;
 
+    public float timeTillCooldown = 3f;
+    private float timeTillCooldownRESET;
+    private bool onCooldown = false;
+
+    public float getTimeTillCooldown() { return timeTillCooldown; }
+
     void Start()
     {
         lr = GetComponent<LineRenderer>();
         spawnPos = GetComponent<Transform>();
         mainCam = Camera.main;
+
+        timeTillCooldownRESET = timeTillCooldown;
     }
 
     void OnEnable()
@@ -31,15 +39,16 @@ public class LaserEyes : MonoBehaviour
 
     void Update()
     {
-
-
-
-
-        if (Input.GetButton("Fire1") && Time.timeScale != 0)
+        if (Input.GetButton("Fire1") && Time.timeScale != 0 && !onCooldown)
         {
+            timeTillCooldown -= Time.deltaTime;
+
+            if (timeTillCooldown <= 0)
+                StartCoroutine(LaserCooldown(5f));
+
             Vector2 cursorPosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-            if (!startedLaser)
+            if (!startedLaser && !onCooldown)
             {
                 AudioManager.instance.Play("LaserEyes");
                 lr.enabled = true;
@@ -50,13 +59,12 @@ public class LaserEyes : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(cursorPosition, Vector2.zero);
 
-                if (hit.collider != null)
+                if (hit.collider != null && !onCooldown)
                 {
                     if (hit.collider.gameObject.tag == "NPC")
                     {
                         Civilian civ = hit.collider.gameObject.GetComponent<Civilian>();
                         civ.KillCivilian();
-                        AudioManager.instance.Play("Fire");
                     }
                     if (hit.collider.gameObject.tag == "LaserHitbox")
                     {
@@ -76,8 +84,13 @@ public class LaserEyes : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             AudioManager.instance.Stop("LaserEyes");
+            AudioManager.instance.Stop("Fire");
             startedLaser = false;
             lr.enabled = false;
+        }
+        if (!Input.GetButton("Fire1") && !onCooldown && timeTillCooldown < timeTillCooldownRESET)
+        {
+            timeTillCooldown += (Time.deltaTime / 3);
         }
 
 
@@ -86,5 +99,21 @@ public class LaserEyes : MonoBehaviour
     void FlipLaserSO()
     {
         lr.sortingOrder = lr.sortingOrder == 51 ? 45 : 51;
+    }
+
+    private IEnumerator LaserCooldown(float time)
+    {
+        AudioManager.instance.Play("PowerDown");
+
+        onCooldown = true;
+        AudioManager.instance.Stop("LaserEyes");
+        AudioManager.instance.Stop("Fire");
+        lr.enabled = false;
+        startedLaser = false;
+
+        yield return new WaitForSeconds(time);
+
+        onCooldown = false;
+        timeTillCooldown = timeTillCooldownRESET;
     }
 }

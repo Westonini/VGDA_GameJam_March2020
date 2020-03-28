@@ -4,23 +4,41 @@ using UnityEngine;
 
 public class Civilian : MonoBehaviour
 {
+    public Characters characterList;
+    private Characters.SpriteList chosenCharacter;
+
     private SpriteRenderer SR;
     private Collider2D col;
+    public Collider2D wallCol;
     public Sprite[] bloodSprites;
+    private bool civilianDead = false;
 
     public delegate void CivilianDeath();
     public static event CivilianDeath _civilianDeath;
 
+    public bool getCivilianDead() { return civilianDead; }
+
     void Awake()
     {
-        SR = GetComponent<SpriteRenderer>();
+        SR = GetComponentInChildren<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        int randomInt = Random.Range(0, characterList.playerCharacters.Length);
+
+        chosenCharacter = characterList.playerCharacters[randomInt];
+        SR.sprite = chosenCharacter.front;
     }
 
     public void KillCivilian()
     {
+        civilianDead = true;
+
         //Disable collider
         col.enabled = false;
+        wallCol.enabled = false;
 
         //Change sprite to a random bloody one
         int randomNum = Random.Range(0, bloodSprites.Length);
