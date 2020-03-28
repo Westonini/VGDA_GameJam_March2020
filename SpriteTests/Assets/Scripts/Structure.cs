@@ -12,18 +12,14 @@ public class Structure : MonoBehaviour
     public GameObject shadow;
     public GameObject walkway;
     public GameObject colliders;
+    public GameObject stompHitbox;
+    public GameObject laserHitbox;
 
     void Start()
     {
         SR = GetComponent<SpriteRenderer>();
 
         darkenAmount = 100f / (health * 100f);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            TakeDamage();
     }
 
     public void TakeDamage()
@@ -54,7 +50,12 @@ public class Structure : MonoBehaviour
         shadow.SetActive(false);
         walkway.SetActive(false);
         colliders.SetActive(false);
+        stompHitbox.SetActive(false);
+        laserHitbox.SetActive(false);
 
         SR.sprite = null;
+
+        //Add 1 to structures destroyed counter
+        ScoreCounter.structuresDestroyed++;
     }
 }

@@ -7,11 +7,27 @@ public class PlayerAnimations : MonoBehaviour
     [HideInInspector]
     public Animator anim;
 
-    public Collider2D collider;
+    public Collider2D movementCollider;
 
     void Awake()
     {
         anim = GetComponent<Animator>();
+    }
+
+    void OnEnable()
+    {
+        PlayerListener._playerWalking += PlayWalkAnim;
+        PlayerListener._playerStopWalking += StopWalkAnim;
+
+        PlayerListener._playerJumping += PlayJumpAnim;
+    }
+
+    void OnDisable()
+    {
+        PlayerListener._playerWalking -= PlayWalkAnim;
+        PlayerListener._playerStopWalking -= StopWalkAnim;
+
+        PlayerListener._playerJumping -= PlayJumpAnim;
     }
 
     public void PlayWalkAnim()
@@ -43,9 +59,9 @@ public class PlayerAnimations : MonoBehaviour
     private IEnumerator ToggleCollider(float startDisableCollider, float endDisableCollider)
     {
         yield return new WaitForSeconds(startDisableCollider);
-        collider.enabled = false;
+        movementCollider.enabled = false;
         yield return new WaitForSeconds(endDisableCollider);
-        collider.enabled = true;
+        movementCollider.enabled = true;
     }
 
     private IEnumerator PlaySoundAtTime(float time)

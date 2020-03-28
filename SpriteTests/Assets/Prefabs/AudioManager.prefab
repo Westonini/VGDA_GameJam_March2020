@@ -64,3 +64,43 @@ MonoBehaviour:
     ignoreListenerPause: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: Stomp
+    clip: {fileID: 8300000, guid: 986c3b9b5bfa8df49898dd9038c95b6b, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 0.85
+    pitchVariance: 0
+    loop: 0
+    ignoreListenerPause: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: StompWalk
+    clip: {fileID: 8300000, guid: 4dfeaa367476dc84fad4b6d13fa0a60a, type: 3}
+    volume: 0.4
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    ignoreListenerPause: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Bloody1
+    clip: {fileID: 8300000, guid: 6e670559bb78c414ba9eba03f66a2a58, type: 3}
+    volume: 0.1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    ignoreListenerPause: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Bloody2
+    clip: {fileID: 8300000, guid: cfa9465025295d041ae6fdba239c0853, type: 3}
+    volume: 0.1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    ignoreListenerPause: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
