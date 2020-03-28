@@ -10,18 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
-
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     //GETTERS & SETTERS
     public float getHorizontalInput() { return horizontalInput; }
     public float getVerticalInput() { return verticalInput; }
-
-
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
     void FixedUpdate()
     {

@@ -15,18 +15,35 @@ public class PlayerRender : MonoBehaviour
 
     private Characters.SpriteList currentCharacter;
 
+    private PlayerAnimations playerAnim;
+
     public bool getFacingRight() { return facingRight; }
     public bool getFacingDown() { return facingDown; }
+
+    private void Awake()
+    {
+        playerAnim = GetComponent<PlayerAnimations>();
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
         currentCharacter = characters.playerCharacters[chosenChar];
-        sr = GetComponent<SpriteRenderer>();
-
     }
 
     void Update()
     {
+        if (Input.GetButtonDown("Jump") && !playerAnim.anim.GetBool("Jumping"))
+        {
+            playerAnim.PlayJumpAnim();
+        }
+
+        if ((PM.getHorizontalInput() != 0 || PM.getVerticalInput() != 0) && !playerAnim.anim.GetBool("Jumping"))
+            playerAnim.PlayWalkAnim();
+        else
+            playerAnim.StopWalkAnim();
+
+
         //FLIP PLAYER
         if (!facingRight && PM.getHorizontalInput() > 0)      //HORIZONTALLY
         {
