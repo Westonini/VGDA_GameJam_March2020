@@ -17,18 +17,20 @@ public class PlayerAnimations : MonoBehaviour
     public void PlayWalkAnim()
     {
         anim.SetBool("Walking", true);
+        AudioManager.instance.Play("StompWalk");
     }
 
     public void StopWalkAnim()
     {
         anim.SetBool("Walking", false);
+        AudioManager.instance.Stop("StompWalk");
     }
 
     public void PlayJumpAnim()
     {
-        StartCoroutine(ToggleCollider(0.2f, 0.583f));
-        StartCoroutine(PlayShortAnim("Jumping", 0.583f));
-
+        StartCoroutine(ToggleCollider(0.05f, (20f/60f)));
+        StartCoroutine(PlayShortAnim("Jumping", (20f / 60f)));
+        StartCoroutine(PlaySoundAtTime((20f / 60f)));
     }
 
     private IEnumerator PlayShortAnim(string animName, float animEndTime)
@@ -36,7 +38,6 @@ public class PlayerAnimations : MonoBehaviour
         anim.SetBool(animName, true);
         yield return new WaitForSeconds(animEndTime);
         anim.SetBool(animName, false);
-
     }
 
     private IEnumerator ToggleCollider(float startDisableCollider, float endDisableCollider)
@@ -45,6 +46,12 @@ public class PlayerAnimations : MonoBehaviour
         collider.enabled = false;
         yield return new WaitForSeconds(endDisableCollider);
         collider.enabled = true;
+    }
+
+    private IEnumerator PlaySoundAtTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        AudioManager.instance.PlayOneShot("Stomp");
     }
 
 }
