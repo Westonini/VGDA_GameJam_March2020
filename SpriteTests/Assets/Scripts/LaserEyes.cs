@@ -90,7 +90,7 @@ public class LaserEyes : MonoBehaviour
         }
         if (!Input.GetButton("Fire1") && !onCooldown && timeTillCooldown < timeTillCooldownRESET)
         {
-            timeTillCooldown += (Time.deltaTime / 3);
+            timeTillCooldown += Time.deltaTime;
         }
 
 
@@ -114,6 +114,7 @@ public class LaserEyes : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         onCooldown = false;
+        AudioManager.instance.Play("LaserReady");
         timeTillCooldown = timeTillCooldownRESET;
     }
 }
